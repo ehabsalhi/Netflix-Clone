@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { json } from 'react-router-dom';
 import FavList from './FavList';
 
-function ModelMovies({show , handleClose , singleItem}) {
+function UpdateModal({show , handleClose , singleItem}) {
 
      
      const myObj = {
@@ -19,8 +19,8 @@ function ModelMovies({show , handleClose , singleItem}) {
           comment : null
      }
 
-     const addData =  () => {      
-           axios.post(`http://localhost:3008/favorite` , (myObj))
+     const updateData =  () => {      
+           axios.put(`http://localhost:3008/favorite/${singleItem.id}` , (myObj))
           .then(res => console.log(res.data))
           .catch ((err) => console.log(err))
           handleClose()
@@ -32,23 +32,23 @@ function ModelMovies({show , handleClose , singleItem}) {
      <>
      <Modal show={show} onHide={handleClose}>
      <Modal.Header closeButton>
-       <Modal.Title>{singleItem.title}</Modal.Title>
+       <Modal.Title> Update Movie: {singleItem.title}</Modal.Title>
      </Modal.Header>
      <Modal.Body>  
       </Modal.Body>
      <Modal.Body>
-          <img src={'https://image.tmdb.org/t/p/original'+singleItem.poster_path} alt={singleItem.title} />
           <form action="">
-          <textarea placeholder='Add Comment ' id='comment' style={{resize : "none" , width : '350px'}}></textarea>
-          </form>
-          <button style={{border : "none" , backgroundColor : "#0d6efd" , color :"white"}} onClick={() => { myObj.comment = document.getElementById("comment").value } }>add comment</button>
+          <textarea placeholder='Add Comment ' id='comment' style={{resize : "none" , width : '350px'}} defaultValue={singleItem.comment}></textarea>
+          <button style={{border : "none" , backgroundColor : "#0d6efd" , color :"white"}}
+           onClick={() => { myObj.comment = document.getElementById("comment").value } }>add comment</button>
+           </form>
 
      </Modal.Body>
      <Modal.Footer>
        <Button variant="secondary" onClick={() => {handleClose()}}>
          Close
        </Button>
-       <Button variant="primary" onClick={addData}>
+       <Button variant="primary" onClick={updateData}>
          Save Changes
        </Button>
      </Modal.Footer>
@@ -61,4 +61,4 @@ function ModelMovies({show , handleClose , singleItem}) {
 
 }
 
-export default ModelMovies;
+export default UpdateModal;
