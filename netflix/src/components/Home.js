@@ -12,9 +12,7 @@ function Home() {
       const res = await axios.get(`https://api.themoviedb.org/3/trending/all/week?api_key=37ddc7081e348bf246a42f3be2b3dfd0&language=en-US`);
       console.log(res.data.results) 
       setdata(res.data.results)  
-      // const res = await axios.get(`http://localhost:3008/trending`);
-      // console.log(res.data.trending) 
-      // setdata(res.data.trending)
+
     }catch (err) {
       console.log('catch Error');
     }

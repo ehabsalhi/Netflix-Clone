@@ -19,7 +19,9 @@ function ModelMovies({show , handleClose , singleItem}) {
           comment : null
      }
 
-     const addData =  () => {      
+     const addData =  (e) => {      
+      e.preventDefault()
+      myObj.comment = e.target.comment.value
            axios.post(`http://localhost:3008/favorite` , (myObj))
           .then(res => console.log(res.data))
           .catch ((err) => console.log(err))
@@ -31,28 +33,27 @@ function ModelMovies({show , handleClose , singleItem}) {
   return (
      <>
      <Modal show={show} onHide={handleClose}>
+      <form onSubmit={addData}>
+        
      <Modal.Header closeButton>
        <Modal.Title>{singleItem.title}</Modal.Title>
      </Modal.Header>
-     <Modal.Body>  
-      </Modal.Body>
+
      <Modal.Body>
           <img src={'https://image.tmdb.org/t/p/original'+singleItem.poster_path} alt={singleItem.title} />
-          <form action="">
+          
           <textarea placeholder='Add Comment ' id='comment' style={{resize : "none" , width : '350px'}}></textarea>
-          </form>
-          <button style={{border : "none" , backgroundColor : "#0d6efd" , color :"white"}} onClick={() => { myObj.comment = document.getElementById("comment").value } }>add comment</button>
+          
+          {/* <button style={{border : "none" , backgroundColor : "#0d6efd" , color :"white"}} onClick={() => { myObj.comment = document.getElementById("comment").value } }>add comment</button> */}
 
      </Modal.Body>
-     <Modal.Footer>
-       <Button variant="secondary" onClick={() => {handleClose()}}>
-         Close
-       </Button>
-       <Button variant="primary" onClick={addData}>
-         Save Changes
-       </Button>
-     </Modal.Footer>
 
+     <Modal.Footer>
+       <Button variant="secondary" onClick={() => {handleClose()}}>Close</Button>
+       <Button variant="primary" type='sumbit'> Save Changes</Button>
+     </Modal.Footer>
+     
+     </form>
    </Modal>
 
    </>

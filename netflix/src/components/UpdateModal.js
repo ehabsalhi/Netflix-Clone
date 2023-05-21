@@ -7,22 +7,21 @@ import { useState } from 'react';
 import { json } from 'react-router-dom';
 import FavList from './FavList';
 
-function UpdateModal({show , handleClose , singleItem}) {
+function UpdateModal({show , handleClose , singleItem , setIsUpdate}) {
 
+     setIsUpdate(false)
      
-     const myObj = {
-          id : singleItem.id,
-          title : singleItem.title,
-          overview : singleItem.overview,
-          poster_path : singleItem.poster_path,
-          release_date : singleItem.release_date,
-          comment : null
-     }
+     const updateData =  (e) => {     
+          e.preventDefault();
 
-     const updateData =  () => {      
-           axios.put(`http://localhost:3008/favorite/${singleItem.id}` , (myObj))
-          .then(res => console.log(res.data))
+          const myObj = {
+               comment : e.target.comment.value
+          }
+
+          axios.put(`http://localhost:3008/favorite/${singleItem.id}` , (myObj))
+          .then(res => {console.log(res.data) ; setIsUpdate(true)} )
           .catch ((err) => console.log(err))
+          
           handleClose()
           }
 
@@ -31,28 +30,22 @@ function UpdateModal({show , handleClose , singleItem}) {
   return (
      <>
      <Modal show={show} onHide={handleClose}>
+     <form onSubmit={updateData}>
+          
      <Modal.Header closeButton>
        <Modal.Title> Update Movie: {singleItem.title}</Modal.Title>
      </Modal.Header>
-     <Modal.Body>  
-      </Modal.Body>
-     <Modal.Body>
-          <form action="">
-          <textarea placeholder='Add Comment ' id='comment' style={{resize : "none" , width : '350px'}} defaultValue={singleItem.comment}></textarea>
-          <button style={{border : "none" , backgroundColor : "#0d6efd" , color :"white"}}
-           onClick={() => { myObj.comment = document.getElementById("comment").value } }>add comment</button>
-           </form>
 
+     <Modal.Body>
+          <textarea placeholder='Add Comment ' id='comment' style={{resize : "none" , width : '350px'}} defaultValue={singleItem.comment}></textarea>
      </Modal.Body>
+
      <Modal.Footer>
-       <Button variant="secondary" onClick={() => {handleClose()}}>
-         Close
-       </Button>
-       <Button variant="primary" onClick={updateData}>
-         Save Changes
-       </Button>
+       <Button variant="secondary" onClick={handleClose}> Close</Button>
+       <Button variant="primary" onClick={handleClose} type='submit'>Save Changes</Button>
      </Modal.Footer>
 
+     </form>
    </Modal>
 
    </>
