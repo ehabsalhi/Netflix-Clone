@@ -14,7 +14,7 @@ export default function FavList() {
 
   const getData = async () => {
     try{
-    const res = await  axios.get(`http://localhost:3008/favorite`)
+    const res = await  axios.get(`https://movie-server-8wr7.onrender.com/favorite`)
     setfav(res.data.result)}
 
     catch(err){console.log(err);}

@@ -13,7 +13,7 @@ export default function Movie({item , handleShow , setSingleItem , canEdit = fal
 
 
      const deleteMovie = () =>{
-          axios.delete(`http://localhost:3008/favorite/${item.id}`).then(result =>{
+          axios.delete(`https://movie-server-8wr7.onrender.com/favorite/${item.id}`).then(result =>{
                console.log('deleted');
                deleteState(item.id)
           }).catch((err) => console.log(err));

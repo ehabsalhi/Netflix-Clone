@@ -18,7 +18,7 @@ function UpdateModal({show , handleClose , singleItem , setIsUpdate}) {
                comment : e.target.comment.value
           }
 
-          axios.put(`http://localhost:3008/favorite/${singleItem.id}` , (myObj))
+          axios.put(`https://movie-server-8wr7.onrender.com/favorite/${singleItem.id}` , (myObj))
           .then(res => {console.log(res.data) ; setIsUpdate(true)} )
           .catch ((err) => console.log(err))
           

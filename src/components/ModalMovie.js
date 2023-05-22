@@ -22,7 +22,7 @@ function ModelMovies({show , handleClose , singleItem}) {
      const addData =  (e) => {      
       e.preventDefault()
       myObj.comment = e.target.comment.value
-           axios.post(`http://localhost:3008/favorite` , (myObj))
+           axios.post(`https://movie-server-8wr7.onrender.com/favorite` , (myObj))
           .then(res => console.log(res.data))
           .catch ((err) => console.log(err))
           handleClose()
